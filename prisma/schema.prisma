@@ -22,4 +22,21 @@ model User {
     email String
     name String?
     surname String?
+    //Gym data
+    branch Branch? @relation(fields: [branchId], references: [id])
+    branchId Int?
+}
+
+model Gym {
+    id Int @id @default(uuid())
+    name String
+    branches Branch[]
+}
+
+model Branch {
+    id Int @id @default(uuid())
+    gym Gym @relation(fields: [gymId], references: [id])
+    gymId Int
+    name String
+    members User[]
 }
