@@ -13,24 +13,38 @@ datasource db {
 enum UserTypes {
     MEMBER
     TRAINER
+    OWNER
     ADMIN
+}
+
+enum Countries {
+    RO
 }
 
 model Member {
     id Int @id @default(uuid())
-    role UserTypes @default(USER)
+    role UserTypes @default(MEMBER)
     email String
     name String?
     surname String?
+    country Countries? @default(RO)
+    phoneNumber String?
     //Gym data
     branch Branch? @relation(fields: [branchId], references: [id])
     branchId Int?
+    //ADDRESS
+    street String?
+    number String?
+    city String?
+    country Countries? @default(RO)
+    postalCode String?
 }
 
 model Gym {
     id Int @id @default(uuid())
     name String
     branches Branch[]
+    country Countries? @default(RO)
 }
 
 model Branch {
@@ -39,4 +53,12 @@ model Branch {
     gymId Int
     name String
     members Member[]
+    //ADDRESS
+    phoneNumber String?
+    street String?
+    number String?
+    city String?
+    country Countries? @default(RO)
+    postalCode String?
 }
+
