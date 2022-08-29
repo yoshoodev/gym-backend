@@ -6,15 +6,17 @@ import {
 import express from 'express';
 import http from 'http';
 
-const { typeDefs } = require('./schema.js')
+const { context } = require("./context.js");
+const { typeDefs } = require('./schema.js');
 const { resolvers } = require('./resolvers');
 
-async function startApolloServer(typeDefs, resolvers) {
+async function startApolloServer(typeDefs, resolvers, context) {
     const app = express();
     const httpServer = http.createServer(app);
     const server = new ApolloServer({
         typeDefs,
         resolvers,
+        context,
         csrfPrevention: true,
         cache: 'bounded',
         plugins: [
@@ -29,4 +31,4 @@ async function startApolloServer(typeDefs, resolvers) {
     console.log(`🚀 Server ready at http://localhost:4000${server.graphqlPath}`);
 }
 
-startApolloServer(typeDefs, resolvers).then(() => {});
+startApolloServer(typeDefs, resolvers, context).then(() => {});
