@@ -22,7 +22,7 @@ enum Countries {
 }
 
 model Member {
-    id Int @id @default(uuid())
+    id String @id @default(uuid())
     role UserTypes @default(MEMBER)
     email String
     name String?
@@ -31,26 +31,25 @@ model Member {
     phoneNumber String?
     //Gym data
     branch Branch? @relation(fields: [branchId], references: [id])
-    branchId Int?
+    branchId String?
     //ADDRESS
     street String?
     number String?
     city String?
-    country Countries? @default(RO)
     postalCode String?
 }
 
 model Gym {
-    id Int @id @default(uuid())
+    id String @id @default(uuid())
     name String
     branches Branch[]
     country Countries? @default(RO)
 }
 
 model Branch {
-    id Int @id @default(uuid())
+    id String @id @default(uuid())
     gym Gym @relation(fields: [gymId], references: [id])
-    gymId Int
+    gymId String
     name String
     members Member[]
     //ADDRESS
