@@ -1,14 +1,13 @@
-import {ApolloServer} from 'apollo-server-express';
-import {
-    ApolloServerPluginDrainHttpServer,
-    ApolloServerPluginLandingPageLocalDefault,
-} from 'apollo-server-core';
-import express from 'express';
-import http from 'http';
-
-const { context } = require("./context.js");
+const { ApolloServer } = require('apollo-server-express');
+const { ApolloServerPluginDrainHttpServer, ApolloServerPluginLandingPageLocalDefault} = require('apollo-server-core');
+const express = require('express');
+const http = require('http');
 const { typeDefs } = require('./schema.js');
+
+
+const { context } = require('./context.js');
 const { resolvers } = require('./resolvers');
+
 
 async function startApolloServer(typeDefs, resolvers, context) {
     const app = express();
@@ -16,7 +15,7 @@ async function startApolloServer(typeDefs, resolvers, context) {
     const server = new ApolloServer({
         typeDefs,
         resolvers,
-        context,
+        context: context,
         csrfPrevention: true,
         cache: 'bounded',
         plugins: [
@@ -32,3 +31,4 @@ async function startApolloServer(typeDefs, resolvers, context) {
 }
 
 startApolloServer(typeDefs, resolvers, context).then(() => {});
+
