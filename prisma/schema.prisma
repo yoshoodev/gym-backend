@@ -24,7 +24,7 @@ enum Countries {
 model Member {
     id String @id @default(uuid())
     role UserTypes @default(MEMBER)
-    email String
+    email String @unique
     name String?
     surname String?
     country Countries? @default(RO)
